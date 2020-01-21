@@ -1,0 +1,18 @@
+From: centos:centos6@sha256:285bc3161133ec01d8ca8680cd746eecbfdbc1faa6313bd863151c4b26d7e5a5
+Bootstrap: docker
+
+%files
+/home/ubuntu/lumerical_container/Lumerical-2019b-r6-1db3676/rpm_install_files/opt/lumerical /opt
+
+%post
+yum --enablerepo=cr update -y
+yum install epel-release -y
+yum --enablerepo=cr groupinstall "MATE Desktop" -y
+yum install mesa-libGLU.x86_64 -y
+yum install tigervnc-server xorg-x11-fonts-Type1 -y
+
+%environment
+export PATH=/opt/lumerical/2019b/bin:$PATH
+
+%startscript
+vncserver
